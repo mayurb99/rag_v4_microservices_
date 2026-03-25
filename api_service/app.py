@@ -15,8 +15,9 @@ def home():
 def ask(req: QueryRequest):
 
     try:
+        print("Calling RAG service...")
         response = requests.post(
-            "http://127.0.0.1:8001/rag",
+            "http://localhost:8001/rag",
             json={"question": req.question}
         )
 

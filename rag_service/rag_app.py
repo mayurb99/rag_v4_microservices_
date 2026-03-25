@@ -13,6 +13,7 @@ def home():
 
 @app.post("/rag")
 def run_rag(req: QueryRequest):
+    print("🔥 RAG ENDPOINT HIT")
     try:
         answer = get_rag_answer(req.question)
         return {"answer": answer}
