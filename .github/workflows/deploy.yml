@@ -46,7 +46,7 @@ jobs:
         run: |
           nohup env PINECONE_API_KEY=$PINECONE_API_KEY \
           HUGGINGFACEHUB_API_TOKEN=$HUGGINGFACEHUB_API_TOKEN \
-          api_service.app:app --port 8000 > api.log 2>&1 &
+          uvicorn api_service.app:app --port 8000 > api.log 2>&1 &
           sleep 20
           cat api.log   
 
