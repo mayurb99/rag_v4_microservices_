@@ -14,12 +14,18 @@ def home():
 @app.post("/ask")
 def ask(req: QueryRequest):
 
-    response = requests.post(
-        "http://127.0.0.1:8001/rag",
-        json={"question": req.question}
-    )
+    try:
+        response = requests.post(
+            "http://127.0.0.1:8001/rag",
+            json={"question": req.question}
+        )
 
-    return {
-        "question": req.question,
-        "answer": response.json()["answer"]
-    }
+        print("RAG RESPONSE:", response.text) 
+
+        return {
+            "question": req.question,
+            "answer": response.json()["answer"]
+        }
+
+    except Exception as e:
+        return {"error": str(e)}

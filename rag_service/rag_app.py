@@ -13,7 +13,9 @@ def home():
 
 @app.post("/rag")
 def run_rag(req: QueryRequest):
-    answer = get_rag_answer(req.question)
-    return {
-        "answer": answer
-    }
+    try:
+        answer = get_rag_answer(req.question)
+        return {"answer": answer}
+    except Exception as e:
+        print("ERROR IN RAG SERVICE:", str(e))
+        return {"error": str(e)}
