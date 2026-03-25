@@ -33,16 +33,22 @@ jobs:
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
           HUGGINGFACEHUB_API_TOKEN: ${{ secrets.HUGGINGFACEHUB_API_TOKEN }}
         run: |
-          nohup uvicorn rag_service.rag_app:app --port 8001 &
+          nohup env PINECONE_API_KEY=$PINECONE_API_KEY \
+          HUGGINGFACEHUB_API_TOKEN=$HUGGINGFACEHUB_API_TOKEN \
+          uvicorn rag_service.rag_app:app --port 8001 > rag.log 2>&1 &
           sleep 20
+          cat rag.log   
 
       - name: Start API Service
         env:
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
           HUGGINGFACEHUB_API_TOKEN: ${{ secrets.HUGGINGFACEHUB_API_TOKEN }}
         run: |
-          nohup uvicorn api_service.app:app --port 8000 &
+          nohup env PINECONE_API_KEY=$PINECONE_API_KEY \
+          HUGGINGFACEHUB_API_TOKEN=$HUGGINGFACEHUB_API_TOKEN \
+          api_service.app:app --port 8000 > api.log 2>&1 &
           sleep 20
+          cat api.log   
 
       - name: Test API
         run: |

@@ -23,9 +23,12 @@ def ask(req: QueryRequest):
 
         print("RAG RESPONSE:", response.text) 
 
+        rag_result = response.json()
+        if "error" in rag_result:
+            return {"error": f"RAG service error: {rag_result['error']}"}
         return {
             "question": req.question,
-            "answer": response.json()["answer"]
+            "answer": rag_result["answer"]   # ✅ safe now
         }
 
     except Exception as e:
