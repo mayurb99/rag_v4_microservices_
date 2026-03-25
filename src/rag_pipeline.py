@@ -5,6 +5,9 @@ from huggingface_hub import InferenceClient
 
 def get_rag_answer(query):
 
+    print("PINECONE:", os.getenv("PINECONE_API_KEY"))
+    print("HF TOKEN:", os.getenv("HUGGINGFACEHUB_API_TOKEN"))
+
     model = SentenceTransformer("all-MiniLM-L6-v2")
 
     # Pinecone
